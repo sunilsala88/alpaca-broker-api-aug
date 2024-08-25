@@ -16,34 +16,34 @@ api_key='PKB872RM09BHVAMWPS9P'
 secret_key='yFTUvVwM5f9G0mrZJWFIZkZu5eF4mxbAq5b4wAFy'
 
 
-symbol='GOOG'
+# symbol='GOOG'
 
 # get list of options contracts for the given underlying symbol (e.g. SPY,AAPL)
 # - get_option_contracts() is a new method to get list of options contracts
 # - in this example, we get 2 options contracts for SPY,AAPL
 # - you can continue to fetch options contracts by specifying page_token from next_page_token of response
-# underlying_symbols = ['SPY']
-# req = GetOptionContractsRequest(
-#     underlying_symbols = underlying_symbols,               # specify underlying symbols
-#     status = AssetStatus.ACTIVE,                           # specify asset status: active (default)
-#     expiration_date = None,                                # specify expiration date (specified date + 1 day range)
-#     expiration_date_gte = None,                            # we can pass date object
-#     expiration_date_lte = None,                            # or string (YYYY-MM-DD)
-#     root_symbol = None,                                    # specify root symbol
-#     type = None,                                           # specify option type (ContractType.CALL or ContractType.PUT)
-#     style = None,                                          # specify option style (ContractStyle.AMERICAN or ContractStyle.EUROPEAN)
-#     strike_price_gte = None,                               # specify strike price range
-#     strike_price_lte = None,                               # specify strike price range
-#     limit = 2,                                             # specify limit
-#     page_token = None,                                     # specify page token
-# )
-# # setup clients
-# trade_client = TradingClient(api_key=api_key, secret_key=secret_key, paper=True)
-# res = trade_client.get_option_contracts(req)
-# print(res)
+underlying_symbols = ['GOOG']
+req = GetOptionContractsRequest(
+    underlying_symbols = underlying_symbols,               # specify underlying symbols
+    status = AssetStatus.ACTIVE,                           # specify asset status: active (default)
+    expiration_date = None,                                # specify expiration date (specified date + 1 day range)
+    expiration_date_gte = None,                            # we can pass date object
+    expiration_date_lte = None,                            # or string (YYYY-MM-DD)
+    root_symbol = None,                                    # specify root symbol
+    type = None,                                           # specify option type (ContractType.CALL or ContractType.PUT)
+    style = None,                                          # specify option style (ContractStyle.AMERICAN or ContractStyle.EUROPEAN)
+    strike_price_gte = None,                               # specify strike price range
+    strike_price_lte = None,                               # specify strike price range
+    limit = 2,                                             # specify limit
+    page_token = None,                                     # specify page token
+)
+# setup clients
+trade_client = TradingClient(api_key=api_key, secret_key=secret_key, paper=True)
+res = trade_client.get_option_contracts(req)
+print(res)
 
 
-symbol="SPY240826C00555000"
+symbol="GOOG240830C00095000"
 
 option_historical_data_client = OptionHistoricalDataClient(api_key, secret_key)
 now = datetime.now(ZoneInfo("America/New_York"))
