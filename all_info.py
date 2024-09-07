@@ -40,14 +40,29 @@ def get_all_position():
 
 
 def close_this_position(ticker_name):
-    position = trading_client.get_open_position(ticker_name)
-    print(position)
-    if len(position)==0:
-        print('we dont have any position ')
-        return 0
+    try:
+        position = trading_client.get_open_position(ticker_name)
+        print(position)
+        c=trading_client.close_position(ticker_name)
+        print(c)
+        print('position closed')
+    except:
+        print('position does not exist')
+
 
 def close_this_order(ticker_name):
-    pass
+    o=trading_client.get_orders()
+   
+    for ord in o:
+        if ord.symbol==ticker_name:    
+            a=ord.id
+            t=trading_client.cancel_order_by_id(a)
+            print(t)
+            print('closed open orders')
+            return 0
+
+    print('ticker name does not exist')
+    
 
 
 def closs_all_orders():
@@ -60,12 +75,12 @@ def close_all_positions():
 
 # df=get_all_open_orders()
 # print(df)
-
 # df=get_all_position()
 # print(df)
 # close_all_positions()
 
 
-
-money=trading_client.get_account().cash
-print(money)
+# money=trading_client.get_account().cash
+# print(money)
+# close_this_position('SPY')
+# close_this_order('AMZN')
