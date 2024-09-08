@@ -1,2 +1,2 @@
 ,asset_id,symbol,exchange,asset_class,asset_marginable,avg_entry_price,qty,side,market_value,cost_basis,unrealized_pl,unrealized_plpc,unrealized_intraday_pl,unrealized_intraday_plpc,current_price,lastday_price,change_today,swap_rate,avg_entry_swap_rate,usd,qty_available
-0,64bbff51-59d6-4b3c-9351-13ad85e3c752,BTCUSD,CRYPTO,crypto,False,54327.302848204,0.997799999,long,54426.558511,54207.782728,218.775783,0.004035874038563,218.775783,0.004035874038563,54546.561,54157.8,0.0071783011865327,,,,0.997799999
+0,64bbff51-59d6-4b3c-9351-13ad85e3c752,BTCUSD,CRYPTO,crypto,False,54327.302848204,0.997799999,long,54377.974632,54207.782728,170.191904,0.0031396212026228,170.191904,0.0031396212026228,54497.87,54157.8,0.0062792432484333,,,,0.997799999

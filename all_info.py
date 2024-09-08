@@ -84,3 +84,5 @@ def close_all_positions():
 # print(money)
 # close_this_position('SPY')
 # close_this_order('AMZN')
+
+close_this_position('BTC/USD')

@@ -19,6 +19,8 @@ crypto_historical_data_client = CryptoHistoricalDataClient()
 from zoneinfo import ZoneInfo
 from alpaca.data.requests import CryptoBarsRequest
 from alpaca.data.timeframe import TimeFrame, TimeFrameUnit
+from alpaca.trading.requests import MarketOrderRequest
+from alpaca.trading.enums import OrderSide, TimeInForce
 
 
 tickers=["BTC/USD","ETH/USD"]
@@ -68,12 +70,49 @@ def get_historical_crypto_data(ticker_name,time_frame,days):
     data['sma_30']=ta.sma(data['close'],30)
     return data
 
+def close_this_position(ticker_name):
+    try:
+        position = trading_client.get_open_position(ticker_name)
+        print(position)
+        c=trading_client.close_position(ticker_name)
+        print(c)
+        print('position closed')
+    except:
+        print('position does not exist')
+
+def trade_buy_stocks(ticker,closing_price):
+    print('placing market order')
+    # preparing orders
+    market_order_data = MarketOrderRequest(
+                        symbol=ticker,
+                        qty=1,
+                        side=OrderSide.BUY,
+                        time_in_force=TimeInForce.GTC
+                        )
+
+    # Market order
+    market_order = trading_client.submit_order(
+                    order_data=market_order_data
+                )
+
 
 def strategy(hist_df,ticker):
     print('inside strategy conditional code ')
     # print(hist_df)
     print(ticker)
-    
+    buy_condition=(hist_df['sma_10'].iloc[-1]>hist_df['sma_30'].iloc[-1]) and (hist_df['sma_10'].iloc[-2]<hist_df['sma_30'].iloc[-2])
+    money=float(trading_client.get_account().cash)
+    money=money/3
+    print(money)
+    closing_price=hist_df['close'].iloc[-1]
+    if money>closing_price:
+        if buy_condition:
+            print('buy condition satisfied')
+            trade_buy_stocks(ticker,closing_price)
+        else:
+            print('no condition satisfied')
+    else:
+        print('we dont have enough money to trade')
 
 
 def main_strategy_code():
@@ -116,18 +155,15 @@ def main_strategy_code():
                 strategy(hist_df,ticker)
             elif curr_quant>0:
                 print('we are already long')
+                sell_condition=(hist_df['sma_10'].iloc[-1]<hist_df['sma_30'].iloc[-1]) and (hist_df['sma_10'].iloc[-2]>hist_df['sma_30'].iloc[-2])
+                sell_condition=True
+                if sell_condition:
+                    print('sell condition is satisfied ')
+                    close_this_position(ticker)
+                else:
+                    print('sell condition not satisfied')
             
-            elif curr_quant<0:
-                print('we are already short')
-
-
-
-
-
-
-
-
-
+            
 
 current_time=datetime.datetime.now()
 print(current_time)
