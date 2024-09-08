@@ -156,10 +156,9 @@ def main_strategy_code():
             elif curr_quant>0:
                 print('we are already long')
                 sell_condition=(hist_df['sma_10'].iloc[-1]<hist_df['sma_30'].iloc[-1]) and (hist_df['sma_10'].iloc[-2]>hist_df['sma_30'].iloc[-2])
-                sell_condition=True
                 if sell_condition:
                     print('sell condition is satisfied ')
-                    close_this_position(ticker)
+                    close_this_position(ticker.replace('/',''))
                 else:
                     print('sell condition not satisfied')
             
